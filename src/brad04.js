@@ -20,17 +20,12 @@ var Brad04Layer = cc.Layer.extend({
         });
         this.addChild(this.sprite1);
 
-        this.setupMouse1(this);
-        this.setupMouse2(this);
-
-        return true;
-    },
-
-    setupMouse1: function (layer) {
         cc.eventManager.addListener({
             event: cc.EventListener.MOUSE,
             onMouseDown: function (e) {
                 var target = e.getCurrentTarget();
+                var parent = target.getParent();
+
                 var targetRect = cc.rect(
                     target.x - target.width/2,
                     target.y - target.height/2,
@@ -39,21 +34,24 @@ var Brad04Layer = cc.Layer.extend({
                 );
                 var point = new cc.Point(e.getLocationX(), e.getLocationY());
                 if (cc.rectContainsPoint(targetRect,point)){
-                    cc.log("touch 1");
-                    layer.isTouch1 = true;
+                    parent.isTouch1 = true
+                    cc.log("touch 11");
                 }
             },
-            onMouseUp: function () {
-                layer.isTouch1 = false;
-            },
-        },layer.sprite1);
-    },
+            onMouseUp: function (e) {
+                var target = e.getCurrentTarget();
+                var parent = target.getParent();
+                parent.isTouch1 = false;
 
-    setupMouse2: function (layer) {
+            }
+        },this.sprite1);
+
         cc.eventManager.addListener({
             event: cc.EventListener.MOUSE,
             onMouseDown: function (e) {
                 var target = e.getCurrentTarget();
+                var parent = target.getParent();
+
                 var targetRect = cc.rect(
                     target.x - target.width/2,
                     target.y - target.height/2,
@@ -61,11 +59,14 @@ var Brad04Layer = cc.Layer.extend({
                     target.height
                 );
                 var point = new cc.Point(e.getLocationX(), e.getLocationY());
-                if (cc.rectContainsPoint(targetRect,point) && !layer.isTouch1){
-                    cc.log("touch 2");
+                if (cc.rectContainsPoint(targetRect,point)
+                    && !parent.isTouch1){
+                    cc.log("touch 22");
                 }
             },
-        },layer.sprite2);
+        },this.sprite2);
+
+        return true;
     },
 
 
