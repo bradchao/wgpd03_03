@@ -105,7 +105,7 @@ cc.game.onStart = function(){
 
     //load resources
     cc.LoaderScene.preload(g_resources, function () {
-        cc.director.runScene(new Brad02Scene());
+        cc.director.runScene(new Brad03Scene());
     }, this);
 };
 cc.game.run();
