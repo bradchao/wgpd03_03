@@ -1,6 +1,7 @@
 
 var Brad03Layer = cc.Layer.extend({
     sprite:null,
+    sprite2:null,
     spriteRect:null,
     isDragging:false,
     ctor:function () {
@@ -8,7 +9,7 @@ var Brad03Layer = cc.Layer.extend({
 
         this.sprite = new cc.Sprite(res.HelloWorld_png);
         this.sprite.attr({
-            x: cc.winSize.width / 2,
+            x: cc.winSize.width *1/ 4,
             y: cc.winSize.height / 2
         });
         this.addChild(this.sprite);
@@ -17,9 +18,28 @@ var Brad03Layer = cc.Layer.extend({
             this.sprite.y - this.sprite.height/2,
             this.sprite.width,
             this.sprite.height
-            )
+            );
+        this.sprite2 = new cc.Sprite(res.HelloWorld_png);
+        this.sprite2.attr({
+            x: cc.winSize.width *3 / 4,
+            y: cc.winSize.height / 2
+        });
+        this.addChild(this.sprite2);
 
-        this.setupMouse();
+        cc.eventManager.addListener({
+            event: cc.EventListener.MOUSE,
+            onMouseDown: function (e) {
+                var target = e.getCurrentTarget();
+                target.x = e.getLocationX();
+                target.y = e.getLocationY();
+            }
+        },this.sprite);
+
+
+
+        this.scheduleUpdate();
+
+        //this.setupMouse();
 
         return true;
     },
