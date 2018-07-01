@@ -1,8 +1,9 @@
 
 var Brad05Layer = cc.Layer.extend({
+    sprite:null,
     isShoot: false,
-    dx: 4,
-    dy: 4,
+    dx: 40,
+    dy: 40,
     ctor:function () {
         this._super();
 
@@ -33,6 +34,9 @@ var Brad05Layer = cc.Layer.extend({
     update: function () {
         if (this.isShoot){
             cc.log('shooting...');
+
+            this.sprite.x += this.dx;
+            this.sprite.y += this.dy;
         }
     }
 
